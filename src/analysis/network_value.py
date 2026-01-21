@@ -5,6 +5,7 @@ Network Value Analysis
 Functions for analyzing network value according to different laws.
 """
 
+import math
 import numpy as np
 import networkx as nx
 from typing import Tuple
@@ -64,7 +65,7 @@ def calculate_reed_value(n: int, max_group_size: int = 10) -> float:
         Network value (approximation)
     """
     max_group_size = min(max_group_size, n)
-    value = sum(np.math.comb(n, k) for k in range(2, max_group_size + 1))
+    value = sum(math.comb(n, k) for k in range(2, max_group_size + 1))
     return float(value)
 
 

@@ -26,6 +26,94 @@ def setup_plot_style():
     sns.set_palette("husl")
 
 
+def plot_network_sample(G: nx.DiGraph, key_figures: List[str], figsize: Tuple[int, int] = (10, 8)) -> plt.Figure:
+    """
+    Create a standalone network sample visualization.
+
+    Parameters
+    ----------
+    G : nx.DiGraph
+        Network graph
+    key_figures : list
+        List of influential users
+    figsize : tuple
+        Figure size
+
+    Returns
+    -------
+    fig : plt.Figure
+        Matplotlib figure object
+    """
+    setup_plot_style()
+    fig, ax = plt.subplots(figsize=figsize)
+    _plot_network_sample(ax, G, key_figures)
+    plt.tight_layout()
+    return fig
+
+
+def get_top_influencers(centralities: Dict, n: int = 20) -> List[Tuple[str, float]]:
+    """
+    Get top N influencers by weighted in-degree.
+
+    Parameters
+    ----------
+    centralities : dict
+        Dictionary of centrality metrics
+    n : int
+        Number of top influencers to return
+
+    Returns
+    -------
+    top_n : list
+        List of (user, score) tuples
+    """
+    return sorted(centralities['in_degree_weighted'].items(),
+                  key=lambda x: x[1], reverse=True)[:n]
+
+
+def get_top_bridges(centralities: Dict, n: int = 20) -> List[Tuple[str, float]]:
+    """
+    Get top N bridges by betweenness centrality.
+
+    Parameters
+    ----------
+    centralities : dict
+        Dictionary of centrality metrics
+    n : int
+        Number of top bridges to return
+
+    Returns
+    -------
+    top_n : list
+        List of (user, score) tuples
+    """
+    return sorted(centralities['betweenness'].items(),
+                  key=lambda x: x[1], reverse=True)[:n]
+
+
+def get_degree_distribution(G: nx.DiGraph) -> Tuple[List[int], List[int]]:
+    """
+    Get degree distribution data.
+
+    Parameters
+    ----------
+    G : nx.DiGraph
+        Network graph
+
+    Returns
+    -------
+    degrees : list
+        Unique degree values
+    counts : list
+        Count for each degree value
+    """
+    degree_list = [d for n, d in G.degree()]
+    degree_count = Counter(degree_list)
+    degrees_sorted = sorted(degree_count.keys())
+    counts = [degree_count[d] for d in degrees_sorted]
+    return degrees_sorted, counts
+
+
 def create_full_visualization(
     G: nx.DiGraph,
     centralities: Dict,
