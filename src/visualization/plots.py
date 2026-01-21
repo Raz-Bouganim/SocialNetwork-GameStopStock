@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import networkx as nx
 import numpy as np
+import pandas as pd
 from collections import Counter
 from typing import Dict, List, Tuple
 
@@ -22,7 +23,10 @@ from ..utils.helpers import truncate_name
 
 def setup_plot_style():
     """Set up matplotlib/seaborn style."""
-    plt.style.use('seaborn-v0_8-darkgrid')
+    try:
+        plt.style.use('seaborn-v0_8-darkgrid')
+    except OSError:
+        plt.style.use('ggplot')
     sns.set_palette("husl")
 
 
@@ -298,8 +302,6 @@ def _plot_top_betweenness(ax, betweenness: Dict, key_figures: List[str]):
 
 def _plot_centrality_comparison(ax, centralities: Dict, key_figures: List[str]):
     """Plot centrality comparison for key figures."""
-    import pandas as pd
-
     centrality_data = []
     for user in key_figures:
         if (user in centralities['degree_centrality'] and

@@ -1142,15 +1142,38 @@ def main():
             st.markdown("---")
 
             st.markdown("### Centrality Measures")
-            st.markdown("""
-            | Measure | Formula | Interpretation |
-            |---------|---------|----------------|
-            | **Degree Centrality** | C_D(v) = deg(v)/(n-1) | How connected a user is |
-            | **Weighted In-Degree** | Sum of incoming edge weights | Total engagement received |
-            | **Betweenness Centrality** | C_B(v) = Σ(σ_st(v)/σ_st) | How often user bridges shortest paths |
-            | **Closeness Centrality** | C_C(v) = (n-1)/Σd(v,u) | How quickly user can reach everyone |
-            | **Freeman Centralization** | C = Σ(C_max - C_i)/max_possible | Overall network concentration |
-            """)
+
+            col1, col2, col3 = st.columns([1.5, 2, 2])
+            col1.markdown("**Measure**")
+            col2.markdown("**Formula**")
+            col3.markdown("**Interpretation**")
+
+            st.markdown("---")
+
+            col1, col2, col3 = st.columns([1.5, 2, 2])
+            col1.markdown("**Degree Centrality**")
+            col2.latex(r"C_D(v) = \frac{deg(v)}{n-1}")
+            col3.markdown("How connected a user is")
+
+            col1, col2, col3 = st.columns([1.5, 2, 2])
+            col1.markdown("**Weighted In-Degree**")
+            col2.latex(r"\sum_{u \in N(v)} w_{uv}")
+            col3.markdown("Total engagement received")
+
+            col1, col2, col3 = st.columns([1.5, 2, 2])
+            col1.markdown("**Betweenness Centrality**")
+            col2.latex(r"C_B(v) = \sum_{s \neq v \neq t} \frac{\sigma_{st}(v)}{\sigma_{st}}")
+            col3.markdown("How often user bridges shortest paths")
+
+            col1, col2, col3 = st.columns([1.5, 2, 2])
+            col1.markdown("**Closeness Centrality**")
+            col2.latex(r"C_C(v) = \frac{n-1}{\sum_{u} d(v,u)}")
+            col3.markdown("How quickly user can reach everyone")
+
+            col1, col2, col3 = st.columns([1.5, 2, 2])
+            col1.markdown("**Freeman Centralization**")
+            col2.latex(r"C = \frac{\sum(C_{max} - C_i)}{max\_possible}")
+            col3.markdown("Overall network concentration")
 
             st.markdown("---")
 
@@ -1198,13 +1221,30 @@ def main():
             st.markdown("---")
 
             st.markdown("### Network Value Laws")
-            st.markdown("""
-            | Law | Formula | Application |
-            |-----|---------|-------------|
-            | **Sarnoff's Law** | V = N | Broadcast networks (TV, radio) |
-            | **Metcalfe's Law** | V = N² | Communication networks (phone, email) |
-            | **Reed's Law** | V = 2^N | Group-forming networks (social media) |
 
+            col1, col2, col3 = st.columns([1.5, 1.5, 2])
+            col1.markdown("**Law**")
+            col2.markdown("**Formula**")
+            col3.markdown("**Application**")
+
+            st.markdown("---")
+
+            col1, col2, col3 = st.columns([1.5, 1.5, 2])
+            col1.markdown("**Sarnoff's Law**")
+            col2.latex(r"V = N")
+            col3.markdown("Broadcast networks (TV, radio)")
+
+            col1, col2, col3 = st.columns([1.5, 1.5, 2])
+            col1.markdown("**Metcalfe's Law**")
+            col2.latex(r"V = N^2")
+            col3.markdown("Communication networks (phone, email)")
+
+            col1, col2, col3 = st.columns([1.5, 1.5, 2])
+            col1.markdown("**Reed's Law**")
+            col2.latex(r"V = 2^N")
+            col3.markdown("Group-forming networks (social media)")
+
+            st.markdown("""
             Reed's Law applies to WSB because value comes from:
             - Possible subgroups that can form
             - Coordinated action capability
